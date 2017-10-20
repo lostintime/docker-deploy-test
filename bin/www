@@ -90,10 +90,10 @@ function onListening() {
 }
 
 process.on('SIGTERM', function () {
-  debug("Got SIGTERM")
-  server.close(function () {
-    debug("Server bind closed")
-    process.exit(0);
-  });
+  app.set('got sigterm', true);
+  console.log("Got SIGTERM");
+  // server.close(function () {
+  //   console.log("Server bind closed");
+  //   // process.exit(0);
+  // });
 });
-

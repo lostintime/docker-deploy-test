@@ -22,6 +22,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+  if (app.get('got sigterm')) {
+    console.log('sending connection close');
+    res.set("Connection", "close");
+  }
+
+  next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 

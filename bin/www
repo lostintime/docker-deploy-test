@@ -29,6 +29,18 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+server.on('close', function() {
+  console.log('LIFECYCLE: server got "close" event')
+});
+
+server.on('connect', function() {
+  console.log('LIFECYCLE: server got "connect" event, client requested a HTTP CONNECT');
+});
+
+server.on('connection', function() {
+  console.log('LIFECYCLE: server got "connection" event, new TCP stream is established');
+});
+
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -91,9 +103,9 @@ function onListening() {
 
 process.on('SIGTERM', function () {
   app.set('got sigterm', true);
-  console.log("Got SIGTERM");
+  console.log("LIFECYCLE: Got SIGTERM");
   // server.close(function () {
-  //   console.log("Server bind closed");
+  //   console.log("LIFECYCLE: Server bind closed");
   //   // process.exit(0);
   // });
 });
